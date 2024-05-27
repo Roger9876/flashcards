@@ -3,7 +3,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
 
 class DBHelper {
-  static const String _databaseName = 'mp3_roger.db';
+  static const String _databaseName = 'flashcards.db';
   static const int _databaseVersion = 1;
 
   DBHelper._(); // private constructor (can't be called from outside)
@@ -27,9 +27,8 @@ class DBHelper {
     var dbDir = await getApplicationDocumentsDirectory();
     var dbPath = path.join(dbDir.path, _databaseName);
 
-    print(dbPath);
-
-    await deleteDatabase(dbPath); // nuke the database (for testing)
+    // print(dbPath);
+    // await deleteDatabase(dbPath); // nuke the database (for testing)
 
     var db = await openDatabase(
       dbPath,

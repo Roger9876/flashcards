@@ -55,7 +55,7 @@ class _DeckListState extends State<DeckList> {
 
     for (final dynamic item in jsonData) {
       final String title = item['title'];
-      final int deckId = item['id'];
+      final int deckId = DateTime.now().millisecondsSinceEpoch;
       final List<Flashcard> flashcards = (item['flashcards'] as List<dynamic>)
         .asMap()
         .entries
@@ -70,8 +70,7 @@ class _DeckListState extends State<DeckList> {
               answer: fc['answer']);
         }).toList();
 
-      await DBHelper().insert('deck', {'id': deckId});
-      // int deckId = await DBHelper().insert('deck', {'title': title});
+      await DBHelper().insert('deck', {'id': deckId, 'title': title});
       for (var flashcard in flashcards) {
         await DBHelper().insert('flashcard', {
           'question': flashcard.question,
@@ -79,7 +78,6 @@ class _DeckListState extends State<DeckList> {
           'deckId': deckId,
         });
       }
-      // }
       localDecks.add(Deck(id: deckId, title: title, flashcards: flashcards));
     }
     setState(() {
